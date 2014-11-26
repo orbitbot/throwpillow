@@ -1,0 +1,12 @@
+{
+  "name": "throwpillow",
+  "version": "0.0.1",
+  "description": "CouchDB API requests in your browser",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orbitbot/throwpillow.git"
+  },
+  "author": "Patrik Johnson <patrik@zebros.fi>",
+  "license": "MIT",
+  "homepage": "https://github.com/orbitbot/throwpillow"
+}
