@@ -1,14 +1,34 @@
 .request-container {
   .header {
-    text-align: center;
+    text-align: right;
+    margin: 6px 20px 20px 0;
+    height: 12px;
+    a {
+      color: #333333;
+      margin-right: 4px;
+      margin-left: 4px;
+      .fa {
+        position: relative;
+        top: 2px;
+        font-size: 20px;
+        margin-right: 8px;
+      }
+    }
+    .couch-icon {
+      height: 20px;
+      margin-bottom: 2px;
+    }
+    .version-text {
+      font-size: 10px;
+    }
   }
-  .row {
+  .page-section {
     margin: 20px;
     padding: 12px;
     background-color: #fff;
     background-color: rgba(255, 255, 255, 0.9);
     background: rgba(255, 255, 255, 0.9);
-    box-shadow:         0 0 14px 0 rgba(50, 50, 50, 0.32);
+    // box-shadow: 0 0 14px 0 rgba(50, 50, 50, 0.32);
     border-radius: 1px;
     legend {
       margin-bottom: 30px;
@@ -25,6 +45,14 @@
       margin: 0;
       min-width: 80px;
       padding: 5px;
+    }
+  }
+  .response {
+    .row {
+      margin-bottom: 20px;
+    }
+    .response-header {
+      color: #a0a0a0;
     }
   }
 }

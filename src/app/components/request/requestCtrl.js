@@ -19,26 +19,22 @@
       // console.log($scope.request);
       // validate sth
 
+      function addToScope(data, status, headers) {
+        $scope.request.response = {
+          data    : data,
+          status  : status,
+          headers : headers()
+        };
+      }
+
       $http({
         method  : $scope.request.method,
         url     : $scope.request.url,
         headers : { 'Accept': 'application/json' },
         data    : angular.fromJson($scope.request.payload)
       })
-      .success(function(data, status, headers) {
-        $scope.request.response = {
-          data    : data,
-          status  : status,
-          headers : headers()
-        };
-      })
-      .error(function(data, status, headers) {
-        $scope.request.response = {
-          data    : data,
-          status  : status,
-          headers : headers()
-        };
-      });
+      .success(addToScope)
+      .error(addToScope);
     };
 
   }]);

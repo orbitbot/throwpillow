@@ -71,6 +71,8 @@ var karmaConf = {
   files: [
     'bower_components/angular/angular.js',
     'bower_components/angular-ui-router/release/angular-ui-router.js',
+    'bower_components/angular-bootstrap/ui-bootstrap.js',
+    'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
     'bower_components/angular-ui-ace/ui-ace.js',
     'bower_components/angular-mocks/angular-mocks.js',
     'src/app/app.js',
@@ -90,7 +92,7 @@ gulp.task('karma', ['templates'], function(done) {
   karma.start(_.assign({}, karmaConf, { singleRun: true, colors: true }), done);
 });
 
-gulp.task('continuous-karma', ['templates'], function(done) {
+gulp.task('karma-ci', ['templates'], function(done) {
   karma.start(_.assign({}, karmaConf, { singleRun: false, colors: true, autoWatch: true }), done);
 });
 
