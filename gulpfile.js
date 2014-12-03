@@ -4,11 +4,6 @@ var templatecache = require('gulp-angular-templatecache');
 var karma = require('karma').server;
 var _ = require('lodash');
 
-gulp.plumbedSrc = function( ){
-  return gulp.src.apply( gulp, arguments )
-    .pipe( plumber() );
-};
-
 
 var paths = {
   bower_fonts : 'bower_components/**/*.{ttf,woff,eof,svg}',
@@ -77,22 +72,27 @@ var karmaConf = {
     'bower_components/angular-mocks/angular-mocks.js',
     'src/app/app.js',
     'src/app/components/**/*.js',
-    'dist/js/templates.js'
+    'src/app/components/**/*.html'
   ],
   reporters: ['mocha'],
   plugins: [
     'karma-chai',
     'karma-mocha',
     'karma-mocha-reporter',
-    'karma-phantomjs-launcher'
-  ]
+    'karma-phantomjs-launcher',
+    'karma-ng-html2js-preprocessor'
+  ],
+  preprocessors: {
+    'src/app/components/**/*.html': ['ng-html2js']
+  },
+  ngHtml2JsPreprocessor: { moduleName: 'templates' }
 };
 
-gulp.task('karma', ['templates'], function(done) {
+gulp.task('karma', function(done) {
   karma.start(_.assign({}, karmaConf, { singleRun: true, colors: true }), done);
 });
 
-gulp.task('karma-ci', ['templates'], function(done) {
+gulp.task('karma-ci', function(done) {
   karma.start(_.assign({}, karmaConf, { singleRun: false, colors: true, autoWatch: true }), done);
 });
 
