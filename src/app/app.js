@@ -3,8 +3,8 @@
 
   angular.module('throwpillow', ['templates', 'ui.router', 'ui.bootstrap', 'ui.ace']);
 
-  angular.module('throwpillow').config(['$stateProvider', '$urlRouterProvider',
-    function($stateProvider, $urlRouterProvider) {
+  angular.module('throwpillow').config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
+    function($stateProvider, $urlRouterProvider, $httpProvider) {
 
     $stateProvider
       .state('request', {
@@ -16,5 +16,7 @@
     $urlRouterProvider
       .when('', '/')
       .otherwise('/');
+
+    $httpProvider.interceptors.push('requestRTT');
   }]);
 })();

@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   
-  angular.module('throwpillow').controller('RequestCtrl', ['$scope', '$http', function($scope, $http) {
+  angular.module('throwpillow').controller('RequestCtrl', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
     $scope.aceOption = function() {
       return {
         mode: 'json',
@@ -16,17 +16,8 @@
     };
 
     $scope.submit = function() {
-      // console.log($scope.request);
       // validate sth
       // validate headers
-
-      function addToScope(data, status, headers) {
-        $scope.request.response = {
-          data    : data,
-          status  : status,
-          headers : headers()
-        };
-      }
 
       $http({
         method  : $scope.request.method,
@@ -34,8 +25,15 @@
         headers : $scope.request.headers,
         data    : angular.fromJson($scope.request.payload)
       })
-      .success(addToScope)
-      .error(addToScope);
+      .then(function(response) {
+        $scope.request.response = {
+          data    : response.data,
+          status  : response.status,
+          headers : response.headers(),
+          text    : response.statusText,
+          RTT     : response.config.responseTimestamp - response.config.requestTimestamp
+        };
+      });
     };
 
     $scope.addHeader = function() {
@@ -53,7 +51,10 @@
     };
 
     $scope.removeHeader = function(key) {
-      delete $scope.request.headers[key];
+      $timeout(function() {
+        delete $scope.request.headers[key];
+        $scope.$digest();
+      });
     };
 
   }]);
