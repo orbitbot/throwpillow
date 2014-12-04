@@ -18,6 +18,7 @@
     $scope.submit = function() {
       // console.log($scope.request);
       // validate sth
+      // validate headers
 
       function addToScope(data, status, headers) {
         $scope.request.response = {
@@ -30,11 +31,29 @@
       $http({
         method  : $scope.request.method,
         url     : $scope.request.url,
-        headers : { 'Accept': 'application/json' },
+        headers : $scope.request.headers,
         data    : angular.fromJson($scope.request.payload)
       })
       .success(addToScope)
       .error(addToScope);
+    };
+
+    $scope.addHeader = function() {
+      if ($scope.newHeader.field && $scope.newHeader.value) {
+        if (!$scope.request.headers) {
+          var field = $scope.newHeader.field;
+          var value = $scope.newHeader.value;
+          $scope.request.headers = { field: value };
+        } else {
+          $scope.request.headers[$scope.newHeader.field] = $scope.newHeader.value;
+        }
+        $scope.newHeader.field = '';
+        $scope.newHeader.value = '';
+      }
+    };
+
+    $scope.removeHeader = function(key) {
+      delete $scope.request.headers[key];
     };
 
   }]);
