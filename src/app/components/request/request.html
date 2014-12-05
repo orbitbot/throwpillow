@@ -69,10 +69,12 @@
         </label>
         <div class="col-sm-4">
           <input type="text" class="form-control request-input" placeholder="Header field"
+            ng-keydown="$event.which === 13 ? (newHeader.field && newHeader.value ? addHeader($event): $event.preventDefault()) : ''"
             ng-model="newHeader.field">
         </div>
         <div class="col-sm-4">
           <input type="text" class="form-control request-input" placeholder="Header value"
+            ng-keydown="$event.which === 13 ? (newHeader.field && newHeader.value ? addHeader($event): $event.preventDefault()) : ''"
             ng-model="newHeader.value">
         </div>
         <div class="col-sm-1">

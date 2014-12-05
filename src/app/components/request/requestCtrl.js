@@ -49,7 +49,8 @@
       });
     };
 
-    $scope.addHeader = function() {
+    $scope.addHeader = function(event) {
+      if (event) event.preventDefault();
       if ($scope.newHeader.field && $scope.newHeader.value) {
         if (!$scope.request.headers) {
           var field = $scope.newHeader.field;
