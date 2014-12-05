@@ -5,14 +5,17 @@
     $scope.request = {};
     $scope.request.method = 'GET';
 
-    $scope.$watch('request.method', function(current) {
+    function resetHeaders(current) {
       $scope.request.headers = {};
       $scope.request.headers.Accept = 'application/json, text/plain, * / *';
       if (current === 'POST' || current === 'PUT') {
         $scope.request.headers['Content-Type'] = 'application/json';
         $scope.request.payload = '';
       }
-    });
+    }
+
+    $scope.$watch('request.method', resetHeaders);
+
 
     $scope.aceOption = function() {
       return {
@@ -25,6 +28,13 @@
           });
         }
       };
+    };
+
+    $scope.resetForm = function() {
+      $scope.request.url = '';
+      $scope.request.payload = '';
+      $scope.request.method = 'GET';
+      resetHeaders();
     };
 
     $scope.submit = function() {
