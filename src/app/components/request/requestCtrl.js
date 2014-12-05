@@ -8,8 +8,10 @@
     $scope.$watch('request.method', function(current) {
       $scope.request.headers = {};
       $scope.request.headers.Accept = 'application/json, text/plain, * / *';
-      if (current === 'POST' || current === 'PUT')
+      if (current === 'POST' || current === 'PUT') {
         $scope.request.headers['Content-Type'] = 'application/json';
+        $scope.request.payload = '';
+      }
     });
 
     $scope.aceOption = function() {
@@ -28,6 +30,7 @@
     $scope.submit = function() {
       // validate sth
       // validate headers
+      // console.log($scope.request);
 
       $http({
         method  : $scope.request.method,
