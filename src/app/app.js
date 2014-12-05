@@ -18,5 +18,9 @@
       .otherwise('/');
 
     $httpProvider.interceptors.push('requestRTT');
+    // $httpProvider.interceptors.push('requestDebugger');
+    $httpProvider.defaults.headers.common = undefined;
+    $httpProvider.defaults.headers.post = undefined;
+    $httpProvider.defaults.headers.put = undefined;
   }]);
 })();

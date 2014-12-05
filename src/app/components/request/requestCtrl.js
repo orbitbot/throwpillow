@@ -2,6 +2,16 @@
   'use strict';
   
   angular.module('throwpillow').controller('RequestCtrl', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
+    $scope.request = {};
+    $scope.request.method = 'GET';
+
+    $scope.$watch('request.method', function(current) {
+      $scope.request.headers = {};
+      $scope.request.headers.Accept = 'application/json, text/plain, * / *';
+      if (current === 'POST' || current === 'PUT')
+        $scope.request.headers['Content-Type'] = 'application/json';
+    });
+
     $scope.aceOption = function() {
       return {
         mode: 'json',
