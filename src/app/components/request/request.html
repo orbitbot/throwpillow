@@ -29,16 +29,23 @@
       <div class="form-group url-group">
         <label for="inputEmail3" class="col-sm-1 control-label method-control">
         <div class="dropdown">
-          <button id="dLabel" class="btn btn-default" type="button" data-toggle="dropdown">
+          <button id="dLabel" class="btn btn-default" type="button" data-toggle="dropdown"
+            ng-init="keepOpen = false"
+            ng-click="keepOpen = !keepOpen"
+            ng-mouseenter="dropdownHover = true"
+            ng-mouseleave="keepOpen? '' : dropdownHover = false">
             {{ request.method }}
           </button>
-          <ul class="dropdown-menu">
-            <li><a href="" ng-click="request.method = 'GET'">GET</a></li>
-            <li><a href="" ng-click="request.method = 'HEAD'">HEAD</a></li>
-            <li><a href="" ng-click="request.method = 'PUT'">PUT</a></li>
-            <li><a href="" ng-click="request.method = 'POST'">POST</a></li>
-            <li><a href="" ng-click="request.method = 'DELETE'">DELETE</a></li>
-            <li><a href="" ng-click="request.method = 'COPY'">COPY</a></li>
+          <ul class="dropdown-menu"
+            ng-class="{'open': dropdownHover}"
+            ng-mouseenter="dropdownHover = true"
+            ng-mouseleave="keepOpen? '' : dropdownHover = false">
+            <li><a href="" ng-click="request.method = 'GET'; dropdownHover = false; keepOpen = false">GET</a></li>
+            <li><a href="" ng-click="request.method = 'HEAD'; dropdownHover = false; keepOpen = false">HEAD</a></li>
+            <li><a href="" ng-click="request.method = 'PUT'; dropdownHover = false; keepOpen = false">PUT</a></li>
+            <li><a href="" ng-click="request.method = 'POST'; dropdownHover = false; keepOpen = false">POST</a></li>
+            <li><a href="" ng-click="request.method = 'DELETE'; dropdownHover = false; keepOpen = false">DELETE</a></li>
+            <li><a href="" ng-click="request.method = 'COPY'; dropdownHover = false; keepOpen = false">COPY</a></li>
           </ul>
         </div>
         </label>
