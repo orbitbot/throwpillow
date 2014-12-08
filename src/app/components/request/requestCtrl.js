@@ -8,6 +8,7 @@
     function resetHeaders(current) {
       $scope.request.headers = {};
       $scope.request.headers.Accept = 'application/json, text/plain, * / *';
+      $scope.requestForm.payload.$setValidity('json', true);
       if (current === 'POST' || current === 'PUT') {
         $scope.request.headers['Content-Type'] = 'application/json';
         $scope.request.payload = '';
@@ -20,11 +21,24 @@
     $scope.aceOption = function() {
       return {
         mode: 'json',
-        onLoad: function (_editor) {
-          _editor.setShowPrintMargin(false);
-          _editor.setOptions({
+        onLoad: function (editor) {
+          editor.setShowPrintMargin(false);
+          editor.setOptions({
             maxLines: Infinity,
             tabSize: 2,
+          });
+          editor.on('blur', function() {
+            try {
+              angular.fromJson($scope.request.payload);
+              $scope.requestForm.payload.$setValidity('json', true);
+              $scope.$digest();
+            } catch(e) {
+              if ($scope.request.payload === '')
+                $scope.requestForm.payload.$setValidity('json', true);
+              else
+                $scope.requestForm.payload.$setValidity('json', false);
+              $scope.$digest();
+            }
           });
         }
       };
@@ -42,11 +56,15 @@
       // validate headers
       // console.log($scope.request);
 
+      var data;
+      if (($scope.request.method === 'POST' || $scope.request.method === 'PUT') && $scope.request.payload)
+        data = angular.fromJson($scope.request.payload);
+
       $http({
         method  : $scope.request.method,
         url     : $scope.request.url,
         headers : $scope.request.headers,
-        data    : angular.fromJson($scope.request.payload)
+        data    : data
       })
       .then(function(response) {
         $scope.request.response = {
