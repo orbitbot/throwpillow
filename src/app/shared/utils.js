@@ -19,9 +19,17 @@
         console.log('request', config);
         return config;
       },
+      requestError: function(rejection) {
+        console.log('requestError', rejection);
+        return rejection;
+      },
       response: function(response) {
         console.log('response', response);
         return response;
+      },
+      responseError: function(rejection) {
+        console.log('responseError', rejection);
+        return rejection;
       }
     };
   });
