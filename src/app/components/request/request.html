@@ -122,7 +122,13 @@
   </div>
 
   <div class="row page-section response" ng-show="request.response">
-    <legend>Result</legend>
+    <legend>
+      Result
+      <button type="button" class="btn btn-default pull-right"
+        ng-click="request.response = null">
+        Clear
+      </button>
+    </legend>
     <div class="row">
       <div class="col-sm-1">Status</div>
       <div class="col-sm-10">{{ request.response.status }}&nbsp;&nbsp;&nbsp;{{ request.response.text }}&nbsp;&nbsp;&nbsp;{{ request.response.RTT }} ms</div>
