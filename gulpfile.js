@@ -3,12 +3,11 @@ var plugins = require('gulp-load-plugins')();
 var templatecache = require('gulp-angular-templatecache');
 var karma = require('karma').server;
 var _ = require('lodash');
-
+var browserSync = require("browser-sync");
 
 var paths = {
   bower_fonts : 'bower_components/**/*.{ttf,woff,eof,svg}',
   fonts       : 'src/assets/fonts/*.*',
-  html        : 'dist/*.html',
   images      : 'src/assets/img/**/*.*',
   index       : 'src/index.html',
   js          : 'src/app/**/*.js',
@@ -28,7 +27,8 @@ gulp.task('usemin', function() {
               plugins.less()],
       js: ['concat']
     }))
-    .pipe(gulp.dest('dist/'));
+    .pipe(gulp.dest('dist/'))
+    .pipe(browserSync.reload({ stream: true }));
 });
 
 gulp.task('templates', function () {
@@ -36,7 +36,8 @@ gulp.task('templates', function () {
     .pipe(templatecache('templates.js', { standalone: true }))
     .pipe(plugins.size({ title: 'templates' }))
     .pipe(gulp.dest('dist/js'))
-    .pipe(plugins.connect.reload());
+    .pipe(plugins.connect.reload())
+    .pipe(browserSync.reload({ stream: true }));
 });
 
 
@@ -103,7 +104,6 @@ gulp.task('watch', function () {
   gulp.watch([paths.styles, paths.index, paths.js], ['usemin']);
   gulp.watch([paths.templates], ['templates']);
   gulp.watch([paths.js], ['jshint']);
-  gulp.watch([paths.html], ['html']);
 });
 
 
@@ -115,21 +115,14 @@ gulp.task('jshint', function() {
 
 
 gulp.task('server', function() {
-  plugins.connect.server({
-    root: 'dist',
-    livereload: true
+  browserSync({
+    server: {
+      baseDir: 'dist'
+    },
+    port: '8080',
+    logConnections: true,
+    open: false
   });
-});
-
-gulp.task('livereload', function() {
-  gulp.src('dist/**/*.*')
-  .pipe(plugins.watch())
-  .pipe(plugins.connect.reload());
-});
-
-gulp.task('html', function () {
-  gulp.src(paths.html)
-    .pipe(plugins.connect.reload());
 });
 
 gulp.task('copy-assets', ['copy-images', 'copy-fonts', 'copy-bower_fonts']);
