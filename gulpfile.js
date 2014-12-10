@@ -71,8 +71,7 @@ var karmaConf = {
     'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
     'bower_components/angular-ui-ace/ui-ace.js',
     'bower_components/angular-mocks/angular-mocks.js',
-    'src/app/app.js',
-    'src/app/components/**/*.js',
+    'src/app/**/*.js',
     'src/app/components/**/*.html'
   ],
   reporters: ['mocha'],
