@@ -11,6 +11,10 @@
       response: function(response) {
         response.config.responseTimestamp = new Date().getTime();
         return response;
+      },
+      responseError: function(rejection) {
+        rejection.config.responseTimestamp = new Date().getTime();
+        return rejection;
       }
     };
   }).factory('requestDebugger', function() {
