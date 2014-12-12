@@ -67,13 +67,21 @@
         data    : data
       })
       .then(function(response) {
-        $scope.request.response = {
-          data    : response.data,
-          status  : response.status,
-          headers : response.headers(),
-          text    : response.statusText,
-          RTT     : response.config.responseTimestamp - response.config.requestTimestamp
-        };
+        if (response.status !== 0) {
+          $scope.request.response = {
+            data    : response.data,
+            status  : response.status,
+            headers : response.headers(),
+            text    : response.statusText,
+            RTT     : response.config.responseTimestamp - response.config.requestTimestamp
+          };
+          $scope.request.error = undefined;
+        }
+        else {
+          $scope.request.error = response;
+          $scope.request.error.url = $scope.request.url;
+          $scope.request.response = undefined;
+        }
       });
     };
 

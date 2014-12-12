@@ -150,4 +150,35 @@
       </div>
     </div>
   </div>
+
+  <div class="row page-section"
+    ng-show="request.error">
+    <div ng-show="request.error.status === 0">
+      Could not complete request for {{ request.error.url }}<br />
+      Inspect your browser console for error details.
+    </div>
+    <div ng-show="request.error.status !== 0">
+      Unknown error:
+      <div class="row">
+        <div class="col-sm-1">Status</div>
+        <div class="col-sm-10">{{ request.error.status }}&nbsp;&nbsp;&nbsp;{{ request.error.text }}&nbsp;&nbsp;&nbsp;{{ request.error.RTT }} ms</div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-1">Headers</div>
+        <div class="col-sm-10">
+          <div ng-repeat="(key, value) in request.error.headers">
+            <span class="response-header">{{ key }}:</span>&nbsp;&nbsp;&nbsp;{{ value }}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-1">Data</div>
+        <div class="col-sm-10">
+          <pre>{{ request.error.data | json }}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
