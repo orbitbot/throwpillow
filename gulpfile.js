@@ -24,7 +24,7 @@ gulp.task('usemin', function() {
             plugins.size({ title: 'css', showFiles: true })],
       less: ['concat',
               plugins.size({ title: 'less', showFiles: true }),
-              plugins.less()],
+              plugins.less().on('error', plugins.util.log)],
       js: ['concat']
     }))
     .pipe(gulp.dest('dist/'))
@@ -36,7 +36,6 @@ gulp.task('templates', function () {
     .pipe(templatecache('templates.js', { standalone: true }))
     .pipe(plugins.size({ title: 'templates' }))
     .pipe(gulp.dest('dist/js'))
-    .pipe(plugins.connect.reload())
     .pipe(browserSync.reload({ stream: true }));
 });
 
